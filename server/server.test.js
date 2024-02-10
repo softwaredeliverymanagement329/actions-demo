@@ -10,10 +10,10 @@ test("getStore returns the desired store", (done) => {
 });
 
 
-test("putStore creates a new store", (done) => {
+test("putStore update a store without new information", (done) => {
   request(app)
     .put("/store/orem")
     .expect(200)
-    .expect({ name: "orem" })
+    .expect(updated: true)
     .end((err) => (err ? done(err) : done()));
 });
