@@ -14,6 +14,6 @@ test("putStore update a store without new information", (done) => {
   request(app)
     .put("/store/orem")
     .expect(200)
-    .expect(updated: true)
+    .expect({ updated: true })
     .end((err) => (err ? done(err) : done()));
 });
