@@ -8,3 +8,12 @@ test("getStore returns the desired store", (done) => {
     .expect({ name: "provo" })
     .end((err) => (err ? done(err) : done()));
 });
+
+
+test("putStore creates a new store", (done) => {
+  request(app)
+    .put("/store/orem")
+    .expect(200)
+    .expect({ name: "orem" })
+    .end((err) => (err ? done(err) : done()));
+});
