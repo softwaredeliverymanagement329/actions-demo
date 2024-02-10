@@ -4,7 +4,6 @@ const app = express();
 app.use(express.json());
 
 app.get("/store/:storeName", (req, res) => {
-  let x = 1;
   res.send({ name: req.params.storeName });
 });
 
