@@ -24,3 +24,21 @@ jobs:
         run: npm test
       - name: Lint
         run: npm run lint
+  label:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      - uses: actions/checkout@v3
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/${{ steps.date.outputs.date }}',
+              sha: context.sha
+            })
