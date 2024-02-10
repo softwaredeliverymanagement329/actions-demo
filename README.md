@@ -6,4 +6,4 @@ Demonstration of using GitHub Actions for CI/CD
 
 1. Checkout the work branch
 2. Student adding stuff
-3. More suff that is cool
+3. More stuff that is cool
