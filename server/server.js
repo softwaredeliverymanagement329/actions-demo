@@ -1,19 +1,23 @@
-const express = require("express");
+const express = require('express');
 const app = express();
+const stores = {};
 
 app.use(express.json());
 
-app.get("/store/:storeName", (req, res) => {
-  res.send({ name: req.params.storeName });
+app.get('/store', (req, res) => {
+  res.send({ store: stores });
 });
 
-app.put("/store/:storeName", (req, res) => {
-  req.body.updated = true;
-  res.send(req.body);
+app.get('/store/:storeName', (req, res) => {
+  res.send(stores[req.params.storeName]);
 });
 
-app.get("*", (req, res) => {
-  res.send({ type: "pizza", token: "jwt", created: new Date() });
+app.post('/store/:storeName', (req, res) => {
+  let body = req.body ?? {};
+  body.date = new Date().toISOString();
+  body.name = req.params.storeName;
+  stores[req.params.storeName] = body;
+  res.send({ store: stores });
 });
 
 module.exports = app;
