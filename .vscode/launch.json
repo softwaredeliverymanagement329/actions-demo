@@ -14,25 +14,6 @@
       "runtimeExecutable": "nodemon",
       "skipFiles": ["<node_internals>/**"],
       "type": "node"
-    },
-    {
-      "name": "Debug Jest Tests",
-      "type": "node",
-      "request": "launch",
-      "runtimeArgs": [
-        "--inspect-brk",
-        "${workspaceRoot}/server/node_modules/.bin/jest",
-        "--runInBand"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "boring",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/server/index.js"
     }
   ]
 }
