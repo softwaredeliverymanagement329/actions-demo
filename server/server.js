@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const stores = [];
+const users = [];
 
 app.use(express.json());
 
@@ -35,6 +36,14 @@ app.post('/store/:storeName', (req, res) => {
   newStore.name = req.params.storeName;
   stores.push(newStore);
   res.send({ store: stores });
+});
+
+app.post('/user/:userName', (req, res) => {
+  let newUser = req.body ?? {};
+  newUser.date = new Date().toISOString();
+  newUser.name = req.params.userName;
+  users.push(newUser);
+  res.send({ user: users });
 });
 
 module.exports = app;
