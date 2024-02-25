@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest",
     "test-coverage": "jest --coverage  --coverageReporters json-summary",
+    "test-coverage-report": "jest --coverage",
     "start": "node index.js",
     "lint": "eslint ."
   },
