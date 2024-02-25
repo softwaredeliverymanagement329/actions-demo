@@ -1,22 +1,39 @@
 const express = require('express');
 const app = express();
-const stores = {};
+const stores = [];
 
 app.use(express.json());
+
+app.delete('/store', (req, res) => {
+  stores.length = 0;
+  res.send({ store: stores });
+});
 
 app.get('/store', (req, res) => {
   res.send({ store: stores });
 });
 
 app.get('/store/:storeName', (req, res) => {
-  res.send(stores[req.params.storeName]);
+  const store = stores.find((store) => store.name === req.params.storeName);
+  res.send(store);
+});
+
+app.put('/store/:storeName', (req, res) => {
+  let update = req.body ?? {};
+  let store = stores.find((store) => store.name === req.params.storeName);
+  if (store) {
+    store = { ...store, ...update };
+    res.status(200).send(store);
+  } else {
+    res.status(404).send({ error: 'unknown store' });
+  }
 });
 
 app.post('/store/:storeName', (req, res) => {
-  let body = req.body ?? {};
-  body.date = new Date().toISOString();
-  body.name = req.params.storeName;
-  stores[req.params.storeName] = body;
+  let newStore = req.body ?? {};
+  newStore.date = new Date().toISOString();
+  newStore.name = req.params.storeName;
+  stores.push(newStore);
   res.send({ store: stores });
 });
 

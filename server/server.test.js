@@ -1,19 +1,32 @@
-const request = require("supertest");
-const app = require("./server");
+const request = require('supertest');
+const app = require('./server');
 
-test("getStore returns the desired store", (done) => {
+beforeEach((done) => {
   request(app)
-    .get("/store/provo")
+    .delete('/store')
     .expect(200)
-    .expect({ name: "provo" })
     .end((err) => (err ? done(err) : done()));
 });
 
-
-test("putStore update a store without new information", (done) => {
-  request(app)
-    .put("/store/orem")
+test('create and get a store', async () => {
+  await request(app)
+    .post('/store/provo')
     .expect(200)
-    .expect({ updated: true })
-    .end((err) => (err ? done(err) : done()));
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(/{"date":".*","name":"provo"}/);
+
+  await request(app)
+    .get('/store/provo')
+    .expect(200)
+    .expect(/{"date":".*","name":"provo"}/);
+});
+
+test('update a store', async () => {
+  await request(app).post('/store/orem');
+  await request(app)
+    .put('/store/orem')
+    .send({ manager: 'joe' })
+    .expect(200)
+    .expect('Content-Type', 'application/json; charset=utf-8')
+    .expect(/{"date":".*","name":"orem","manager":"joe"}/);
 });
