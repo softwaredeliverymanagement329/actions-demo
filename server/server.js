@@ -4,22 +4,26 @@ const stores = [];
 const users = [];
 
 app.use(express.json());
+app.use(express.static('public'));
 
-app.delete('/store', (req, res) => {
+const apiRouter = express.Router();
+app.use(`/api`, apiRouter);
+
+apiRouter.delete('/store', (req, res) => {
   stores.length = 0;
   res.send({ store: stores });
 });
 
-app.get('/store', (req, res) => {
+apiRouter.get('/store', (req, res) => {
   res.send({ store: stores });
 });
 
-app.get('/store/:storeName', (req, res) => {
+apiRouter.get('/store/:storeName', (req, res) => {
   const store = stores.find((store) => store.name === req.params.storeName);
   res.send(store);
 });
 
-app.put('/store/:storeName', (req, res) => {
+apiRouter.put('/store/:storeName', (req, res) => {
   let update = req.body ?? {};
   let store = stores.find((store) => store.name === req.params.storeName);
   if (store) {
@@ -30,7 +34,7 @@ app.put('/store/:storeName', (req, res) => {
   }
 });
 
-app.post('/store/:storeName', (req, res) => {
+apiRouter.post('/store/:storeName', (req, res) => {
   let newStore = req.body ?? {};
   newStore.date = new Date().toISOString();
   newStore.name = req.params.storeName;
@@ -38,7 +42,7 @@ app.post('/store/:storeName', (req, res) => {
   res.send({ store: stores });
 });
 
-app.post('/user/:userName', (req, res) => {
+apiRouter.post('/user/:userName', (req, res) => {
   let newUser = req.body ?? {};
   newUser.date = new Date().toISOString();
   newUser.name = req.params.userName;
