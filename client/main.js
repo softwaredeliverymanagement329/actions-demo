@@ -1,6 +1,7 @@
 import './style.css';
 import { setupCounter } from './counter.js';
 import { setupStore } from './store.js';
+import './storeElement.js';
 import gitHubLogo from '/github.svg';
 
 document.querySelector('#app').innerHTML = `
@@ -12,6 +13,7 @@ document.querySelector('#app').innerHTML = `
     <div class="card">
       <button id="counter" type="button"></button>
     </div>
+    <action-store></action-store>
     <div class="card">
       <div id="store">
         <button id="store-add-btn" type="button">Add</button>
