@@ -1,3 +1,5 @@
+import './storeElement.css';
+
 class StoreElement extends HTMLElement {
   constructor() {
     self = super();
@@ -19,6 +21,7 @@ class StoreElement extends HTMLElement {
     addBtn.textContent = 'Add';
     addBtn.addEventListener('click', (e) => {
       const storeName = this.addStoreInput.value;
+      this.addStoreInput.value = '';
       fetch(`/api/store/${storeName}`, {
         method: 'POST',
         headers: {
@@ -50,17 +53,21 @@ class StoreElement extends HTMLElement {
   }
 
   drawTable(data) {
-    this.tableBody.innerHTML = '';
-    data.store.forEach((s) => {
-      const rowEl = document.createElement('tr');
-      const nameEl = document.createElement('td');
-      nameEl.innerText = s.name;
-      const dateEl = document.createElement('td');
-      dateEl.innerText = s.date;
-      rowEl.appendChild(nameEl);
-      rowEl.appendChild(dateEl);
-      this.tableBody.appendChild(rowEl);
-    });
+    if (data.store.length) {
+      this.tableBody.innerHTML = '';
+      data.store.forEach((s) => {
+        const rowEl = document.createElement('tr');
+        const nameEl = document.createElement('td');
+        nameEl.innerText = s.name;
+        const dateEl = document.createElement('td');
+        dateEl.innerText = s.date;
+        rowEl.appendChild(nameEl);
+        rowEl.appendChild(dateEl);
+        this.tableBody.appendChild(rowEl);
+      });
+    } else {
+      this.tableBody.innerHTML = '<tr><td colspan="2">No stores defined</td></tr>';
+    }
   }
 }
 
