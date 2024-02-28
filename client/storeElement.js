@@ -2,16 +2,23 @@ class StoreElement extends HTMLElement {
   constructor() {
     self = super();
 
-    this.createAddStoreButton();
     this.createAddInput();
+    this.createAddStoreButton();
     this.createStoreTable();
+    this.getStores();
+  }
+
+  createAddInput() {
+    this.addStoreInput = self.appendChild(document.createElement('input'));
+    this.addStoreInput.setAttribute('type', 'text');
+    this.addStoreInput.setAttribute('placeholder', 'store name');
   }
 
   createAddStoreButton() {
     const addBtn = self.appendChild(document.createElement('button'));
     addBtn.textContent = 'Add';
     addBtn.addEventListener('click', (e) => {
-      const storeName = addStoreInput.value;
+      const storeName = this.addStoreInput.value;
       fetch(`/api/store/${storeName}`, {
         method: 'POST',
         headers: {
@@ -22,12 +29,6 @@ class StoreElement extends HTMLElement {
         .then((res) => res.json())
         .then((data) => this.drawTable(data));
     });
-  }
-
-  createAddInput() {
-    const addStoreInput = self.appendChild(document.createElement('input'));
-    addStoreInput.setAttribute('type', 'text');
-    addStoreInput.setAttribute('placeholder', 'store name');
   }
 
   createStoreTable() {
@@ -45,7 +46,7 @@ class StoreElement extends HTMLElement {
   getStores() {
     fetch('/api/store')
       .then((res) => res.json())
-      .then((data) => drawTable(data));
+      .then((data) => this.drawTable(data));
   }
 
   drawTable(data) {
