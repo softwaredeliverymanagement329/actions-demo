@@ -20,6 +20,7 @@ class StoreElement extends HTMLElement {
     const addBtn = self.appendChild(document.createElement('button'));
     addBtn.textContent = 'Add';
     addBtn.addEventListener('click', (e) => {
+      console.log('button pressed');
       const storeName = this.addStoreInput.value;
       this.addStoreInput.value = '';
       fetch(`/api/store/${storeName}`, {
@@ -53,6 +54,7 @@ class StoreElement extends HTMLElement {
   }
 
   drawTable(data) {
+    console.log('drawing table');
     if (data.store.length) {
       this.tableBody.innerHTML = '';
       data.store.forEach((s) => {

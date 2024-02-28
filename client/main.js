@@ -7,7 +7,7 @@ document.querySelector('#app').innerHTML = `
     <a href="https://github.com/softwaredeliverymanagement329/actions-demo" target="_blank">
       <img src="${gitHubLogo}" class="logo" alt="GitHub logo" />
     </a>
-    <h1>Actions Demo</h1>
+    <h1>DevOps Demo</h1>
     <action-store></action-store>
     <p class="read-the-docs">
       <a href="https://docs.github.com/en/actions/quickstart" target="_blank">
